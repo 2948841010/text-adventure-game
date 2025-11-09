@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字冒险游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 开场欢迎界面 -->
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <h1 class="game-title">⚔️ 暗影地牢 ⚔️</h1>
+      <p class="game-subtitle">一场生死未卜的冒险即将开始</p>
+
+      <div class="difficulty-selection">
+        <h3>选择你的难度</h3>
+        <div class="difficulty-options">
+          <button class="difficulty-btn" data-difficulty="easy">
+            <span class="diff-icon">🌟</span>
+            <span class="diff-name">简单</span>
+            <span class="diff-desc">适合新手，更多治疗机会</span>
+          </button>
+          <button class="difficulty-btn" data-difficulty="normal">
+            <span class="diff-icon">⚔️</span>
+            <span class="diff-name">普通</span>
+            <span class="diff-desc">平衡的挑战体验</span>
+          </button>
+          <button class="difficulty-btn" data-difficulty="hard">
+            <span class="diff-icon">💀</span>
+            <span class="diff-name">困难</span>
+            <span class="diff-desc">死亡如影随形，仅供勇者</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="game-tips">
+        <h4>💡 游戏提示</h4>
+        <ul>
+          <li>仔细思考每个选择，它们都会影响你的命运</li>
+          <li>管理好你的HP和物品，关键时刻能救命</li>
+          <li>有时逃跑比战斗更明智</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 玩家状态面板 -->
+  <div id="status-panel" style="display: none;">
+    <div class="status-header">
+      <h3>⚔️ 玩家状态</h3>
+    </div>
+
+    <!-- 游戏目标 - 醒目显示 -->
+    <div class="game-objective">
+      <div class="objective-title">🎯 游戏目标</div>
+      <div class="objective-content" id="objective-value">等待AI设定...</div>
+      <div class="objective-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-bar" style="width: 0%"></div>
+        </div>
+        <div class="progress-text" id="progress-text">0%</div>
+      </div>
+    </div>
+
+    <div class="status-item hp-container">
+      <span class="status-label">❤️ HP:</span>
+      <span class="status-value" id="hp-value">100</span>
+      <div class="hp-change" id="hp-change"></div>
+    </div>
+    <div class="status-item">
+      <span class="status-label">🎒 物品:</span>
+      <div class="status-value" id="inventory-value">无</div>
+    </div>
+    <div class="status-item">
+      <span class="status-label">📍 当前位置:</span>
+      <div class="status-value" id="location-value">未知</div>
+    </div>
+    <div class="status-item">
+      <span class="status-label">⚙️ 难度:</span>
+      <div class="status-value" id="difficulty-value">-</div>
+    </div>
+  </div>
+
+  <!-- 游戏主容器 -->
+  <div id="game-container" style="display: none;">
+    <header class="game-header">
+      <h1>🗡️ 暗影地牢 🗺️</h1>
+      <p class="subtitle">你的选择将决定命运</p>
+    </header>
+
+    <div id="chat-window">
+      <div id="messages"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

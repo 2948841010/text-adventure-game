@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试解析逻辑</title>
+</head>
+<body>
+    <h1>测试AI返回解析</h1>
+    <button onclick="testParse()">测试解析</button>
+    <pre id="output"></pre>
+
+    <script>
+        function testParse() {
+            // 模拟AI返回的内容
+            const testReply = `### 📍 当前场景
+你醒来时发现自己身处一个阴暗潮湿的地牢入口。石墙上布满青苔，远处传来低沉的咆哮声。你的手中握着一把生锈的短剑。
+
+### 💬 行动选项
+A. 小心翼翼地向前探索，寻找光源
+B. 检查周围，看看是否有可用的物品
+C. 大声呼喊，试图引起注意
+D. 原地休息，恢复体力
+
+### ℹ️ 玩家状态更新
+**Objective**: 找到地牢深处的龙之宝藏并活着逃出
+**Progress**: 刚刚苏醒，开始探索 5%
+**Location**: 地牢入口-潮湿的石室
+**HP**: 100
+**Inventory**: 生锈的短剑`;
+
+            const output = document.getElementById('output');
+            let result = '=== 测试AI返回解析 ===\n\n';
+            result += '原始内容:\n' + testReply + '\n\n';
+            result += '=== 解析结果 ===\n';
+
+            // 测试Objective解析
+            const objectiveMatch = testReply.match(/\*\*Objective\*\*\s*[：:]\s*(.+?)(?=\n\*\*|\n\n|\n[A-D]\.|$)/is);
+            if (objectiveMatch) {
+                result += '✓ Objective: ' + objectiveMatch[1].trim() + '\n';
+            } else {
+                result += '✗ Objective: 未找到\n';
+                // 尝试备用匹配
+                const fallback = testReply.match(/Objective[：:]\s*(.+?)(?=\n|$)/i);
+                if (fallback) {
+                    result += '  备用匹配: ' + fallback[1].trim() + '\n';
+                }
+            }
+
+            // 测试Progress解析
+            const progressMatch = testReply.match(/\*\*Progress\*\*\s*[：:]\s*[^%\n]*?(\d+)\s*%/is);
+            if (progressMatch) {
+                result += '✓ Progress: ' + progressMatch[1] + '%\n';
+            } else {
+                result += '✗ Progress: 未找到\n';
+            }
+
+            // 测试Location解析
+            const locationMatch = testReply.match(/\*\*Location\*\*\s*[：:]\s*(.+?)(?=\n\*\*|\n\n|\n[A-D]\.|$)/is);
+            if (locationMatch) {
+                result += '✓ Location: ' + locationMatch[1].trim() + '\n';
+            } else {
+                result += '✗ Location: 未找到\n';
+            }
+
+            // 测试HP解析
+            const hpMatch = testReply.match(/\*\*HP\*\*[：:]\s*(\d+)/i);
+            if (hpMatch) {
+                result += '✓ HP: ' + hpMatch[1] + '\n';
+            } else {
+                result += '✗ HP: 未找到\n';
+            }
+
+            // 测试Inventory解析
+            const inventoryMatch = testReply.match(/\*\*Inventory\*\*[：:]\s*(.+?)(?=\*\*|\n|$)/i);
+            if (inventoryMatch) {
+                result += '✓ Inventory: ' + inventoryMatch[1].trim() + '\n';
+            } else {
+                result += '✗ Inventory: 未找到\n';
+            }
+
+            output.textContent = result;
+        }
+    </script>
+</body>
+</html>
